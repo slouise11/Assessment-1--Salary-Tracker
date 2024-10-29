@@ -4,7 +4,11 @@ namespace Assessment_1__Salary_Tracker
 {
     internal class Program
     {
-        public static string EmailAddress { get; private set; }
+        public static string EmailAddress
+        {
+            get;
+            private set;
+        }
 
         static void Main(string[] args)
         {
@@ -19,37 +23,47 @@ namespace Assessment_1__Salary_Tracker
 
             Console.ReadLine();
 
-
-
-
         }
 
         private static void secureAccess()
         {
             Console.WriteLine("Please enter your pin number to continue >>");
-            int pinNo = Convert.ToInt32(Console.ReadLine());
+            string pinInput = Console.ReadLine();
+            int pinNo;
 
 
 
             for (int count = 0; count < 3; count++)
             {
-                if (pinNo == 5644)
-                {
-                    enterSalaries();
-                    return;
-                }
-                else if (count == 2)
-                {
-                    Console.WriteLine("Invalid pin number entered 3 times, no access allowed");
-                }
 
-                else
+                if (Int32.TryParse(pinInput, out pinNo))
                 {
-                    Console.WriteLine($"Try again");
-                    pinNo = Convert.ToInt32(Console.ReadLine());
+                    if (pinNo == 5644)
+                    {
+                        enterSalaries();
+                        return;
+                    }
+                    else if (count == 2)
+                    {
+                        Console.WriteLine("Invalid pin number entered 3 times, no access allowed");
+                    }
+                    else if (pinNo.ToString().Length != 4)
+                    {
+                        Console.WriteLine("Error please enter a pin number as 4 digits");
+                        pinInput = Console.ReadLine();
+                    }
+
+                    else
+                    {
+                        Console.WriteLine($"Try again");
+                        pinInput = Console.ReadLine();
+                    }
                 }
-
-
+                else 
+                {
+                    Console.WriteLine("Error please enter a pin number as 4 digits");
+                    pinInput = Console.ReadLine();
+                }
             }
         }
 
@@ -64,10 +78,9 @@ namespace Assessment_1__Salary_Tracker
                 Console.WriteLine($"Please enter salary for month {count}");
 
                 double monthSalary = Convert.ToDouble(Console.ReadLine());
-          
+
                 totalSalary = totalSalary + monthSalary;
             }
-
 
             double avgSalary = totalSalary / 12;
 
