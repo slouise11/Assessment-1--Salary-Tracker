@@ -16,14 +16,36 @@ namespace Assessment_1__Salary_Tracker
             Console.WriteLine("");
             Console.WriteLine("**********************************************************");
 
-            // Ask the user to enter their email address
-            Console.WriteLine("Please enter your email address >>");
-            EmailAddress = Console.ReadLine(); // Store the users email address for later use
 
-            Console.ReadLine();
+            while (true)
+            {
+                // Ask the user to enter their email address
+                Console.WriteLine("Please enter your email address >>");
+                EmailAddress = Console.ReadLine(); // Store the users email address for later use
+
+                // See if the email entered contains @ and .ac.uk
+                if (IsValidEmail(EmailAddress))
+                {
+                    Console.WriteLine("");
+                    secureAccess(); // moves on to secureAccess method
+                    break; // exit loop because correct email entered
+                }
+                else
+                {
+                    // Inform user wrong email address has been entered
+                    Console.WriteLine("Error needs to be a valid email address");
+                }
+            }
+            
 
         }
-        
+        // Method to check the email contains the correct things
+        static bool IsValidEmail(string email)
+        {
+            // Makes sure the email is not empty and has a @ and .ac.uk
+            return !string.IsNullOrEmpty(email) && email.Contains("@") && email.Contains(".ac.uk");
+        }
+
         private static void secureAccess()
         {
             // Prompts the user for their Pin
